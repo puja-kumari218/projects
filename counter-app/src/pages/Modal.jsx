@@ -1,11 +1,48 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
+import { Button, Modal } from 'antd';
 
-const Form = () => {
+const App = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
+
+  return (
+    <div style={{ padding: '20px' }}>
+      <h2>Welcome to Home Page</h2>
+
+      <Button type="primary" onClick={showModal}>
+        Open this btn
+      </Button>
+
+      <Modal
+        title="Project Form"
+        open={isModalOpen}
+        onOk={handleOk}
+        onCancel={handleCancel}
+        footer={null} 
+      >
+        <FormComponent />
+      </Modal>
+    </div>
+  );
+};
+
+const FormComponent = () => {
   const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    message: "",
-    number: "",
+    name: '',
+    email: '',
+    message: '',
+    number: '',
   });
 
   const [entries, setEntries] = useState([]);
@@ -19,20 +56,20 @@ const Form = () => {
 
     const { name, email, message, number } = formData;
 
-    if (name !== "" && email !== "" && message !== "" && number !== "") {
+    if (name && email && message && number) {
       setEntries([...entries, formData]);
 
       setFormData({
-        name: "",
-        email: "",
-        message: "",
-        number: "",
+        name: '',
+        email: '',
+        message: '',
+        number: '',
       });
     }
   };
 
   return (
-    <div className="p-4">
+    <div>
       <h2 className="text-xl font-bold mb-4">Form</h2>
 
       <form onSubmit={handleSubmit} className="space-y-3">
@@ -41,8 +78,8 @@ const Form = () => {
           name="name"
           placeholder="Enter your Name"
           value={formData.name}
-          onChange={(e) => handleChange("name", e.target.value)}
-          className="border border-gray-400 px-3 py-2 w-full"
+          onChange={(e) => handleChange('name', e.target.value)}
+          className="border border-gray-400 px-3 py-2 w-full mb-2"
         />
 
         <input
@@ -50,16 +87,16 @@ const Form = () => {
           name="email"
           placeholder="Enter your Email"
           value={formData.email}
-          onChange={(e) => handleChange("email", e.target.value)}
-          className="border border-gray-400 px-3 py-2 w-full"
+          onChange={(e) => handleChange('email', e.target.value)}
+          className="border border-gray-400 px-3 py-2 w-full mb-2"
         />
 
         <textarea
           name="message"
           placeholder="Type Something"
           value={formData.message}
-          onChange={(e) => handleChange("message", e.target.value)}
-          className="border border-gray-400 px-3 py-2 w-full"
+          onChange={(e) => handleChange('message', e.target.value)}
+          className="border border-gray-400 px-3 py-2 w-full mb-2"
         />
 
         <input
@@ -67,13 +104,13 @@ const Form = () => {
           name="number"
           placeholder="Enter your Number"
           value={formData.number}
-          onChange={(e) => handleChange("number", e.target.value)}
-          className="border border-gray-400 px-3 py-2 w-full mt-3"
+          onChange={(e) => handleChange('number', e.target.value)}
+          className="border border-gray-400 px-3 py-2 w-full mb-3"
         />
 
         <button
           type="submit"
-          className="bg-red-800 text-white px-4 py-2 rounded"
+          className="bg-red-800 text-white px-4 py-2 rounded w-full"
         >
           Add
         </button>
@@ -94,4 +131,4 @@ const Form = () => {
   );
 };
 
-export default Form;
+export default App;
